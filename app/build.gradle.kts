@@ -1,3 +1,7 @@
+import com.android.build.gradle.internal.tasks.databinding.DataBindingGenBaseClassesTask
+import org.gradle.configurationcache.extensions.capitalized
+import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompileTool
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -46,9 +50,38 @@ android {
     hilt {
         enableAggregatingTask = true
     }
-}
 
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
+
+
+}
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        afterEvaluate {
+            val dataBindingTask =
+                project.tasks.findByName("dataBindingGenBaseClasses" + variant.name.capitalized()) as? DataBindingGenBaseClassesTask
+            if (dataBindingTask != null) {
+                project.tasks.getByName("ksp" + variant.name.capitalized() + "Kotlin") {
+                    (this as AbstractKotlinCompileTool<*>).setSource(dataBindingTask.sourceOutFolder)
+                }
+            }
+        }
+    }
+}
 dependencies {
+
+    // modules
+    implementation(project(":simpleapp-data"))
+
+    // modules for unit test
+    testImplementation(project(":simpleapp-database"))
+    testImplementation(project(":simpleapp-test"))
+    androidTestImplementation(project(":simpleapp-test"))
 
     // androidx
     implementation(libs.material)

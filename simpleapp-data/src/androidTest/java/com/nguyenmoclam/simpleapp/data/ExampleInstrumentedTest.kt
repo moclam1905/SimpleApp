@@ -1,4 +1,4 @@
-package com.nguyenmoclam.simpleapp.core
+package com.nguyenmoclam.simpleapp.data
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,4 +1,4 @@
-package com.nguyenmoclam.simpleapp.core
+package com.nguyenmoclam.simpleapp.data
 
 import org.junit.Test
 

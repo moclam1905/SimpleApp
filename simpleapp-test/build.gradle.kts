@@ -33,7 +33,18 @@ android {
 }
 
 dependencies {
+    implementation(project(":simpleapp-model"))
     implementation(libs.coroutines)
     implementation(libs.coroutines.test)
-    implementation(libs.junit)
+
+    // unit test
+    testImplementation(libs.junit)
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.android.test.runner)
 }

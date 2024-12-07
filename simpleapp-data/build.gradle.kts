@@ -31,9 +31,18 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+            isReturnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
+    api(project(":simpleapp-model"))
+    implementation(project(":simpleapp-database"))
+    testImplementation(project(":simpleapp-test"))
 
     // coroutines
     implementation(libs.coroutines)
@@ -47,10 +56,18 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
 
+    // json parsing
+    implementation(libs.moshi)
+    ksp(libs.moshi.codegen)
+
     // unit test
     testImplementation(libs.junit)
     testImplementation(libs.turbine)
     testImplementation(libs.androidx.test.core)
     testImplementation(libs.mockito.core)
     testImplementation(libs.mockito.kotlin)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.android.test.runner)
 }
