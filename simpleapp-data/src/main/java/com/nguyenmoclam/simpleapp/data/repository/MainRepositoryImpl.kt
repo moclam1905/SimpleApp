@@ -25,7 +25,7 @@ class MainRepositoryImpl @Inject constructor(
 ) : MainRepository {
 
     @WorkerThread
-    override fun fetchPokemonList(
+    override fun fetchItemList(
         page: Int,
         onStart: () -> Unit,
         onComplete: () -> Unit,

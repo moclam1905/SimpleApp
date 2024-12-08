@@ -33,7 +33,7 @@ class MainViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val itemListFlow = itemFetchingIndex.flatMapLatest { page ->
-        mainRepository.fetchPokemonList(
+        mainRepository.fetchItemList(
             page = page,
             onStart = { isLoading = true },
             onComplete = { isLoading = false },

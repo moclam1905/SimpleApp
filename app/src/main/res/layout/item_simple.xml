@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="pokemon"
+            name="item"
             type="com.nguyenmoclam.simpleapp_model.Item" />
 
     </data>
@@ -44,8 +44,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:paletteCard="@{cardView}"
-                    app:paletteImage="@{pokemon.imageUrl}" />
+
+                     />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/name"
@@ -56,7 +56,7 @@
                     android:maxLines="2"
                     android:ellipsize="end"
                     android:padding="12dp"
-                    android:text="@{pokemon.title}"
+                    android:text="@{item.title}"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"

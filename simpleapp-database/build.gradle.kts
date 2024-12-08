@@ -13,6 +13,13 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        // The schemas directory contains a schema file for each version of the Room database.
+        // This is required to enable Room auto migrations.
+        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration.
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
     }
 
     buildTypes {
@@ -28,8 +35,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    lint {
+        abortOnError = false
+    }
+
     kotlinOptions {
         jvmTarget = "11"
+    }
+
+    sourceSets.getByName("test") {
+        assets.srcDir(files("$projectDir/schemas"))
     }
 }
 

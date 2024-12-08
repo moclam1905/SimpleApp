@@ -7,6 +7,17 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        // fetch dagger plugin only
+        mavenCentral() {
+            content {
+                includeGroup("com.google.dagger")
+                includeGroup("com.google.dagger.hilt.android")
+            }
+            mavenContent {
+                releasesOnly()
+            }
+        }
+
         mavenCentral()
         gradlePluginPortal()
     }

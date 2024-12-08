@@ -4,7 +4,7 @@ package com.nguyenmoclam.simpleapp.binding
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nguyenmoclam.simpleapp.ui.main.MainViewModel
-import com.skydoves.baserecyclerviewadapter.RecyclerViewPaginator
+import com.nguyenmoclam.simpleapp.utils.RecyclerViewPaginator
 import com.skydoves.bindables.BindingListAdapter
 import com.skydoves.whatif.whatIfNotNullAs
 
@@ -27,12 +27,12 @@ object RecyclerViewBinding {
   }
 
   @JvmStatic
-  @BindingAdapter("paginationPokemonList")
-  fun paginationPokemonList(view: RecyclerView, viewModel: MainViewModel) {
+  @BindingAdapter("paginationItemList")
+  fun paginationItemList(view: RecyclerView, viewModel: MainViewModel) {
     RecyclerViewPaginator(
       recyclerView = view,
       isLoading = { viewModel.isLoading },
-      loadMore = { viewModel.fetchNextPokemonList() },
+      loadMore = { viewModel.fetchNextItemList() },
       onLast = { false },
     ).run {
       threshold = 8

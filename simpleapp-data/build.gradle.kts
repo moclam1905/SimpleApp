@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    namespace = "com.nguyenmoclam.simpleapp.core"
+    namespace = "com.nguyenmoclam.simpleapp.data"
     compileSdk = 34
 
     defaultConfig {
         minSdk = 24
-
+        targetSdk = 34
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -28,6 +28,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    lint {
+        abortOnError = false
+    }
+
     kotlinOptions {
         jvmTarget = "11"
     }

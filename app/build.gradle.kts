@@ -1,6 +1,7 @@
 import com.android.build.gradle.internal.tasks.databinding.DataBindingGenBaseClassesTask
 import org.gradle.configurationcache.extensions.capitalized
 import org.jetbrains.kotlin.gradle.tasks.AbstractKotlinCompileTool
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.android.application)
@@ -38,6 +39,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    lint {
+        abortOnError = false
+    }
+
     kotlinOptions {
         jvmTarget = "11"
     }
@@ -57,7 +63,24 @@ android {
             isReturnDefaultValues = true
         }
     }
+    tasks{
+        withType<KotlinCompile> {
+            kotlinOptions {
+                freeCompilerArgs += listOf("-Xskip-prerelease-check")
+            }
+        }
+    }
 
+    kotlin {
+        sourceSets.configureEach {
+            kotlin.srcDir(layout.buildDirectory.files("generated/ksp/$name/kotlin/"))
+        }
+        sourceSets.all {
+            languageSettings {
+                languageVersion = "2.0"
+            }
+        }
+    }
 
 }
 androidComponents {

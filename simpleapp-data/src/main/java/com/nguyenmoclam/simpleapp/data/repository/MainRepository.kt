@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface MainRepository {
 
     @WorkerThread
-    fun fetchPokemonList(
+    fun fetchItemList(
         page: Int,
         onStart: () -> Unit,
         onComplete: () -> Unit,
