@@ -1,5 +1,6 @@
 package com.nguyenmoclam.simpleapp_model
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
@@ -22,8 +23,14 @@ data class Item(
     @field:Json(name = "description")
     val description: String,
 
-    val initials: String,          // Trường mới
-    val backgroundColor: Int,      // Trường mới (ARGB)
-    val textColor: Int             // Trường mới (ARGB)
-) : Parcelable
+    val initials: String? = null,          // Trường mới
+    val backgroundColor: Int? = null,      // Trường mới (ARGB)
+    val textColor: Int? = null           // Trường mới (ARGB)
+) : Parcelable {
+
+    @SuppressLint("DefaultLocale")
+    fun getIndexFormatted(): String {
+        return String.format("#%02d", index)
+    }
+}
 

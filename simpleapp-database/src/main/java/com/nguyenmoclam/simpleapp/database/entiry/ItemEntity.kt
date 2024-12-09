@@ -12,7 +12,7 @@ data class ItemEntity (
     val title: String,
     val description: String,
     val date: String,
-    val initials: String,          // Trường mới
-    val backgroundColor: Int,      // Trường mới (ARGB)
-    val textColor: Int             // Trường mới (ARGB)
+    val initials: String?,          // Trường mới
+    val backgroundColor: Int?,      // Trường mới (ARGB)
+    val textColor: Int?            // Trường mới (ARGB)
 )

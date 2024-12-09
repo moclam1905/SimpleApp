@@ -13,9 +13,9 @@ class RecyclerViewPaginator(
 ) : RecyclerView.OnScrollListener() {
 
     var threshold: Int = 10
-    var currentPage: Int = 0
+    private var currentPage: Int = 0
 
-    var endWithAuto = false
+    private var endWithAuto = false
 
     init {
         recyclerView.addOnScrollListener(this)

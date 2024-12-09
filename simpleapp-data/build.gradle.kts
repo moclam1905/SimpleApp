@@ -54,9 +54,6 @@ dependencies {
     testImplementation(libs.coroutines)
     testImplementation(libs.coroutines.test)
 
-    // network
-    implementation(libs.sandwich)
-
     // di
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)

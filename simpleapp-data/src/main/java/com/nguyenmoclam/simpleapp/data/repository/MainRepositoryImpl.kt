@@ -42,10 +42,11 @@ class MainRepositoryImpl @Inject constructor(
                 val moshi = Moshi.Builder().build()
                 val listType = Types.newParameterizedType(List::class.java, Item::class.java)
                 val adapter = moshi.adapter<List<Item>>(listType)
-                var itemList = adapter.fromJson(json) ?: emptyList()
+                val itemList = adapter.fromJson(json) ?: emptyList()
 
-                itemList = itemList.filter { it.page == page }
-
+                itemList.forEachIndexed { index, item ->
+                    item.page = index / 10
+                }
                 itemDao.insertItemList(itemList.asEntity())
 
                 emit(itemDao.getAllItemList(page).asDomain())

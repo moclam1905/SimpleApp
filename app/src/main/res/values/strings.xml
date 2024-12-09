@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SimpleApp</string>
+    <string name="date_format">yyyy/MM/dd</string>
 </resources>

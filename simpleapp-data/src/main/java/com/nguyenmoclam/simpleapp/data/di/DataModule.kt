@@ -1,6 +1,8 @@
 
 package com.nguyenmoclam.simpleapp.data.di
 
+import com.nguyenmoclam.simpleapp.data.repository.DetailRepository
+import com.nguyenmoclam.simpleapp.data.repository.DetailRepositoryImpl
 import com.nguyenmoclam.simpleapp.data.repository.MainRepository
 import com.nguyenmoclam.simpleapp.data.repository.MainRepositoryImpl
 import dagger.Binds
@@ -15,6 +17,6 @@ internal interface DataModule {
   @Binds
   fun bindsMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
 
-//  @Binds
-//  fun bindsDetailRepository(detailRepositoryImpl: DetailRepositoryImpl): DetailRepository
+  @Binds
+  fun bindsDetailRepository(detailRepositoryImpl: DetailRepositoryImpl): DetailRepository
 }

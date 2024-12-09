@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.nguyenmoclam.simpleapp.ui.main.MainViewModel
 import com.nguyenmoclam.simpleapp.utils.RecyclerViewPaginator
 import com.skydoves.bindables.BindingListAdapter
-import com.skydoves.whatif.whatIfNotNullAs
 
 object RecyclerViewBinding {
 
@@ -21,8 +20,8 @@ object RecyclerViewBinding {
   @JvmStatic
   @BindingAdapter("submitList")
   fun bindSubmitList(view: RecyclerView, itemList: List<Any>?) {
-    view.adapter.whatIfNotNullAs<BindingListAdapter<Any, *>> { adapter ->
-      adapter.submitList(itemList)
+    (view.adapter as? BindingListAdapter<Any, *>).let { adapter ->
+      adapter?.submitList(itemList)
     }
   }
 

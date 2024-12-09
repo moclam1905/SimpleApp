@@ -100,6 +100,7 @@ dependencies {
 
     // modules
     implementation(project(":simpleapp-data"))
+    implementation(project(":simpleapp-database"))
 
     // modules for unit test
     testImplementation(project(":simpleapp-database"))
@@ -125,26 +126,14 @@ dependencies {
     // coroutines
     implementation(libs.coroutines)
 
-    // whatIf
-    implementation(libs.whatif)
-
     // image loading
     implementation(libs.glide)
-
-    // bundler
-    implementation(libs.bundler)
 
     // transformation animation
     implementation(libs.transformationLayout)
 
     // recyclerView
     implementation(libs.recyclerview)
-    implementation(libs.baseAdapter)
-
-    // custom views
-    implementation(libs.rainbow)
-    implementation(libs.androidRibbon)
-    implementation(libs.progressView)
 
     // unit test
     testImplementation(libs.junit)
