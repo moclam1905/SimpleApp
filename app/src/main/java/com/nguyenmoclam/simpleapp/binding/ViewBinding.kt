@@ -107,16 +107,6 @@ object ViewBinding {
                                 isFirstResource: Boolean,
                             ): Boolean {
                                 paletteCard.setCardBackgroundColor(item.textColor!!)
-//                                val drawable = resource as BitmapDrawable
-//                                val bitmap = drawable.bitmap
-//                                Palette.Builder(bitmap).generate {
-//                                    it?.let { palette ->
-//                                        val rgb = palette.dominantSwatch?.rgb
-//                                        if (rgb != null) {
-//                                            paletteCard.setCardBackgroundColor(rgb)
-//                                        }
-//                                    }
-//                                }
                                 return false
                             }
                         },

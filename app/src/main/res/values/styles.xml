@@ -29,4 +29,9 @@
         <item name="cornerSizeBottomRight">20%</item>
     </style>
 
+    <style name="PopupMenuTheme" parent="ThemeOverlay.MaterialComponents.Light">
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <item name="android:popupBackground">@color/white</item>
+    </style>
+
 </resources>

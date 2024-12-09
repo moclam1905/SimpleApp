@@ -4,8 +4,9 @@ package com.nguyenmoclam.simpleapp.binding
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nguyenmoclam.simpleapp.ui.main.MainViewModel
-import com.nguyenmoclam.simpleapp.utils.RecyclerViewPaginator
+import com.nguyenmoclam.simpleapp.utils.RecyclerViewPaging
 import com.skydoves.bindables.BindingListAdapter
+import com.skydoves.whatif.whatIfNotNullAs
 
 object RecyclerViewBinding {
 
@@ -20,15 +21,15 @@ object RecyclerViewBinding {
   @JvmStatic
   @BindingAdapter("submitList")
   fun bindSubmitList(view: RecyclerView, itemList: List<Any>?) {
-    (view.adapter as? BindingListAdapter<Any, *>).let { adapter ->
-      adapter?.submitList(itemList)
+    view.adapter.whatIfNotNullAs<BindingListAdapter<Any, *>> { adapter ->
+      adapter.submitList(itemList)
     }
   }
 
   @JvmStatic
   @BindingAdapter("paginationItemList")
   fun paginationItemList(view: RecyclerView, viewModel: MainViewModel) {
-    RecyclerViewPaginator(
+    RecyclerViewPaging(
       recyclerView = view,
       isLoading = { viewModel.isLoading },
       loadMore = { viewModel.fetchNextItemList() },

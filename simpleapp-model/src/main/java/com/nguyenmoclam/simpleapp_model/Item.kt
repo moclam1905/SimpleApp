@@ -23,9 +23,9 @@ data class Item(
     @field:Json(name = "description")
     val description: String,
 
-    val initials: String? = null,          // Trường mới
-    val backgroundColor: Int? = null,      // Trường mới (ARGB)
-    val textColor: Int? = null           // Trường mới (ARGB)
+    val initials: String? = null,
+    val backgroundColor: Int? = null,
+    val textColor: Int? = null
 ) : Parcelable {
 
     @SuppressLint("DefaultLocale")

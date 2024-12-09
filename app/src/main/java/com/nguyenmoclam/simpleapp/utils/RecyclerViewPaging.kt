@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
-class RecyclerViewPaginator(
+class RecyclerViewPaging(
     recyclerView: RecyclerView,
     private val isLoading: () -> Boolean,
     private val loadMore: (Int) -> Unit,
@@ -30,7 +30,12 @@ class RecyclerViewPaginator(
             val lastVisibleItemPosition = when (it) {
                 is LinearLayoutManager -> it.findLastVisibleItemPosition()
                 is GridLayoutManager -> it.findLastVisibleItemPosition()
-                is StaggeredGridLayoutManager -> findLastVisibleItemPosition(it.findLastVisibleItemPositions(null))
+                is StaggeredGridLayoutManager -> findLastVisibleItemPosition(
+                    it.findLastVisibleItemPositions(
+                        null
+                    )
+                )
+
                 else -> return
             }
 
@@ -50,7 +55,4 @@ class RecyclerViewPaginator(
         return lastVisibleItems.maxOfOrNull { it } ?: lastVisibleItems[0]
     }
 
-    fun resetCurrentPage() {
-        this.currentPage = 0
-    }
 }

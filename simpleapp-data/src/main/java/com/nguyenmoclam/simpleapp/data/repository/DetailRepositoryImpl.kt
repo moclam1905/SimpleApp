@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @VisibleForTesting
@@ -24,4 +25,11 @@ class DetailRepositoryImpl @Inject constructor(
           onError(e.message)
         }
     }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
+
+    @WorkerThread
+    override suspend fun deleteItem(index: Long) {
+        withContext(Dispatchers.IO) {
+            itemDao.deleteItemByIndex(index)
+        }
+    }
 }

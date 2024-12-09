@@ -12,4 +12,7 @@ interface DetailRepository {
     onComplete: () -> Unit,
     onError: (String?) -> Unit,
   ): Flow<Item>
+
+  @WorkerThread
+  suspend fun deleteItem(index: Long)
 }

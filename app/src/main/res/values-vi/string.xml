@@ -2,4 +2,13 @@
 <resources>
     <string name="app_name">SimpleApp</string>
     <string name="date_format">dd/MM/yyyy</string>
+    <string name="sort_index">Sắp xếp theo chỉ mục</string>
+    <string name="sort_title">Sắp xếp theo tiêu đề</string>
+    <string name="sort_date">Sắp xếp theo ngày</string>
+    <string name="confirm_delete">Xác nhận xóa</string>
+    <string name="delete_message">Bạn có chắc chắn muốn xóa mục này không?</string>
+    <string name="delete_successfully">Đã xóa mục thành công.</string>
+    <string name="delete_error">Lỗi khi xóa mục:</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
 </resources>

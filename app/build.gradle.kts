@@ -146,4 +146,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso)
     androidTestImplementation(libs.android.test.runner)
+
+    // whatIf
+    implementation(libs.whatif)
 }

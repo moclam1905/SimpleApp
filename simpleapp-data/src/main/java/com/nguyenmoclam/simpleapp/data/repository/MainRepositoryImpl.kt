@@ -3,6 +3,7 @@ package com.nguyenmoclam.simpleapp.data.repository
 import android.content.Context
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
+import com.nguyenmoclam.simpleapp.data.SortOption
 import com.nguyenmoclam.simpleapp.database.ItemDao
 import com.nguyenmoclam.simpleapp.database.entiry.mapper.asDomain
 import com.nguyenmoclam.simpleapp.database.entiry.mapper.asEntity
@@ -27,6 +28,7 @@ class MainRepositoryImpl @Inject constructor(
     @WorkerThread
     override fun fetchItemList(
         page: Int,
+        sortOption: SortOption,
         onStart: () -> Unit,
         onComplete: () -> Unit,
         onError: (String?) -> Unit,
@@ -44,18 +46,25 @@ class MainRepositoryImpl @Inject constructor(
                 val adapter = moshi.adapter<List<Item>>(listType)
                 val itemList = adapter.fromJson(json) ?: emptyList()
 
-                itemList.forEachIndexed { index, item ->
-                    item.page = index / 10
+                val itemListSorted = itemList.sortedByDescending { it.index }
+                itemListSorted.forEachIndexed { index, item ->
+                    item.page = index / 20
                 }
-                itemDao.insertItemList(itemList.asEntity())
+                itemDao.insertItemList(itemListSorted.asEntity())
 
-                emit(itemDao.getAllItemList(page).asDomain())
+                emit(itemDao.getItemsSortedByIndexDesc(page).asDomain())
             } catch (e: Exception) {
                 onError(e.message)
             }
 
         } else {
-            emit(itemDao.getAllItemList(page).asDomain())
+            emit(when (sortOption) {
+                SortOption.INDEX_DESC -> itemDao.getItemsSortedByIndexDesc(page)
+                SortOption.TITLE_DESC -> itemDao.getItemsSortedByTitleDesc(page)
+                SortOption.DATE_DESC -> itemDao.getItemsSortedByDateDesc(page)
+            }.map {
+                it.asDomain()
+            })
         }
     }.onStart { onStart() }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
 }
