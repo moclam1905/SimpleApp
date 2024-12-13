@@ -22,6 +22,16 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+plugins {
+    id("com.android.settings") version "8.7.3"
+}
+
+android {
+    minSdk = 24
+    compileSdk = 34
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
