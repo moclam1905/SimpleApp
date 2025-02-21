@@ -13,23 +13,23 @@ import javax.inject.Inject
 
 @VisibleForTesting
 class DetailRepositoryImpl @Inject constructor(
-  private val itemDao: ItemDao
+  private val itemDao: ItemDao,
 ) : DetailRepository {
 
   @WorkerThread
   override fun fetchItemInfo(index: Long, onComplete: () -> Unit, onError: (String?) -> Unit) =
     flow {
-        try {
-          emit(itemDao.getItemInfo(index).asDomain())
-        } catch (e: Exception) {
-          onError(e.message)
-        }
+      try {
+        emit(itemDao.getItemInfo(index).asDomain())
+      } catch (e: Exception) {
+        onError(e.message)
+      }
     }.onCompletion { onComplete() }.flowOn(Dispatchers.IO)
 
-    @WorkerThread
-    override suspend fun deleteItem(index: Long) {
-        withContext(Dispatchers.IO) {
-            itemDao.deleteItemByIndex(index)
-        }
+  @WorkerThread
+  override suspend fun deleteItem(index: Long) {
+    withContext(Dispatchers.IO) {
+      itemDao.deleteItemByIndex(index)
     }
+  }
 }

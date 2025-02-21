@@ -5,10 +5,10 @@ import androidx.room.RoomDatabase
 import com.nguyenmoclam.simpleapp.database.entiry.ItemEntity
 
 @Database(
-    entities = [ItemEntity::class],
-    version = 1,
-    exportSchema = true,
+  entities = [ItemEntity::class],
+  version = 1,
+  exportSchema = true,
 )
 abstract class RoomDatabase : RoomDatabase() {
-    abstract fun itemDao(): ItemDao
+  abstract fun itemDao(): ItemDao
 }

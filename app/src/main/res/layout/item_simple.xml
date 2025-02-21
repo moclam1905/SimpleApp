@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.nguyenmoclam.simpleapp_model.Item" />
+            type="com.nguyenmoclam.simpleapp.model.Item" />
 
     </data>
 

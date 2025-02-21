@@ -80,23 +80,17 @@ subprojects {
                     "continuation_indent_size" to "2",
                 )
             )
-            licenseHeaderFile(rootProject.file("spotless/spotless.license.kt"))
             trimTrailingWhitespace()
             endWithNewline()
         }
         format("kts") {
             target("**/*.kts")
             targetExclude(buildDirectory)
-            licenseHeaderFile(
-                rootProject.file("spotless/spotless.license.kt"),
-                "(^(?![\\/ ]\\*).*$)"
-            )
         }
 
         format("xml") {
             target("**/*.xml")
             targetExclude(buildDirectory)
-            licenseHeaderFile(rootProject.file("spotless/spotless.license.xml"), "(<[^!?])")
         }
     }
 

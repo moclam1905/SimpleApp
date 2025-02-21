@@ -27,7 +27,7 @@ internal object DatabaseModule {
   @Provides
   @Singleton
   fun provideAppDatabase(
-    application: Application
+    application: Application,
   ): RoomDatabase {
     return Room
       .databaseBuilder(application, RoomDatabase::class.java, "Item.db")
@@ -40,5 +40,4 @@ internal object DatabaseModule {
   fun provideItemDao(appDatabase: RoomDatabase): ItemDao {
     return appDatabase.itemDao()
   }
-
 }
