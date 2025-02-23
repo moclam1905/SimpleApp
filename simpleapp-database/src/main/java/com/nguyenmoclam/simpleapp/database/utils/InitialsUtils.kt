@@ -103,11 +103,22 @@ val stopWords = setOf(
 )
 
 /**
- * Generates initials from a full name by taking the first letter of first and last words.
- * Excludes common stop words and non-letter characters.
+ * Generates a two-letter initial string from a given name by applying the following rules:
+ * 1. For multi-word names: Uses first letter of first and last non-stop words
+ *    Example: "John William Smith" -> "JS"
+ *    Example: "Mary of the House" -> "MH" ("of", "the" are stop words)
+ * 2. For single-word names:
+ *    - If word has 2+ letters: Uses first two letters
+ *      Example: "John" -> "JO"
+ *    - If word has 1 letter: Duplicates that letter
+ *      Example: "A" -> "AA"
+ * 3. Special cases:
+ *    - Empty string or only stop words: Returns "NA"
+ *    - Non-letter characters are ignored
+ *      Example: "John.Doe" -> "JD"
  *
- * @param name The full name to generate initials from
- * @return Two-letter initials string, or "NA" if no valid initials can be generated
+ * @param name The input name to generate initials from
+ * @return A two-letter initial string in uppercase, or "NA" if valid initials cannot be generated
  */
 fun generateInitials(name: String): String {
   val words = name.split(" ")
@@ -120,8 +131,13 @@ fun generateInitials(name: String): String {
     }
 
     words.size == 1 -> {
-      val firstChar = words[0].firstOrNull()?.uppercaseChar() ?: 'N'
-      "$firstChar$firstChar"
+      val word = words[0]
+      if (word.length >= 2) {
+        "${word[0].uppercaseChar()}${word[1].uppercaseChar()}"
+      } else {
+        val firstChar = word.firstOrNull()?.uppercaseChar() ?: 'N'
+        "$firstChar$firstChar"
+      }
     }
 
     else -> "NA"
