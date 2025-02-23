@@ -12,15 +12,28 @@ import android.graphics.drawable.Drawable
 import androidx.collection.LruCache
 import androidx.core.graphics.ColorUtils
 
+/**
+ * Object to cache generated initials drawables to improve performance and memory usage.
+ * Uses LruCache to automatically remove least recently used bitmaps when cache size limit is reached.
+ */
 object InitialsDrawableCache {
-  private val cacheSize = 100
-  val bitmapCache: LruCache<String, Bitmap> = object : LruCache<String, Bitmap>(cacheSize) {
+  private const val CACHE_SIZE = 100
+  val bitmapCache: LruCache<String, Bitmap> = object : LruCache<String, Bitmap>(CACHE_SIZE) {
     override fun sizeOf(key: String, value: Bitmap): Int {
       return value.byteCount / 1024
     }
   }
 }
 
+/**
+ * Creates a circular bitmap with initials text centered inside.
+ *
+ * @param initials The text to display (typically 1-2 characters)
+ * @param size The width and height of the bitmap in pixels
+ * @param backgroundColor The background color of the circle
+ * @param textColor The color of the initials text
+ * @return A circular bitmap containing the initials
+ */
 fun createInitialsBitmap(
   initials: String,
   size: Int = 100,
@@ -60,6 +73,15 @@ fun createInitialsBitmap(
   return bitmap
 }
 
+/**
+ * Creates a drawable from initials text with specified colors.
+ *
+ * @param initials The text to display (typically 1-2 characters)
+ * @param backgroundColor The background color of the circle (defaults to black if null)
+ * @param textColor The color of the initials text (defaults to white if null)
+ * @param size The width and height of the drawable in pixels
+ * @return A drawable containing the initials in a circle
+ */
 fun createInitialsDrawable(
   initials: String?,
   backgroundColor: Int?,
@@ -75,10 +97,18 @@ fun createInitialsDrawable(
   return BitmapDrawable(Resources.getSystem(), bitmap)
 }
 
+/** Common words to exclude when generating initials from names */
 val stopWords = setOf(
   "in", "the", "and", "of", "a", "an", "to", "with", "for", "on", "at", "by",
 )
 
+/**
+ * Generates initials from a full name by taking the first letter of first and last words.
+ * Excludes common stop words and non-letter characters.
+ *
+ * @param name The full name to generate initials from
+ * @return Two-letter initials string, or "NA" if no valid initials can be generated
+ */
 fun generateInitials(name: String): String {
   val words = name.split(" ")
     .filter { it.isNotEmpty() && it.lowercase() !in stopWords }
@@ -98,6 +128,12 @@ fun generateInitials(name: String): String {
   }
 }
 
+/**
+ * Determines if a color is considered "dark" based on its RGB values.
+ *
+ * @param color The color to check
+ * @return true if the color is dark, false if it's light
+ */
 fun isColorDark(color: Int): Boolean {
   val darkness = 1 - (
     0.299 * Color.red(color) +
@@ -107,10 +143,24 @@ fun isColorDark(color: Int): Boolean {
   return darkness >= 0.5
 }
 
+/**
+ * Converts dp value to pixels based on device density.
+ *
+ * @param dp The value in density-independent pixels
+ * @param context The context to get display metrics
+ * @return The value in pixels
+ */
 fun dpToPx(dp: Float, context: Context): Int {
   return (dp * context.resources.displayMetrics.density + 0.5f).toInt()
 }
 
+/**
+ * Generates a color pair (background and text) based on initials.
+ * Ensures good contrast between the colors.
+ *
+ * @param initials The initials to generate colors for
+ * @return Pair of (backgroundColor, textColor)
+ */
 fun getColorFromInitials(initials: String): Pair<Int, Int> {
   if (initials.isEmpty()) {
     return Pair(Color.parseColor("#E0E0E0"), Color.DKGRAY)
@@ -129,6 +179,12 @@ fun getColorFromInitials(initials: String): Pair<Int, Int> {
   return Pair(backgroundColor, textColor)
 }
 
+/**
+ * Calculates the complementary color by shifting hue by 180 degrees.
+ *
+ * @param color The original color
+ * @return The complementary color
+ */
 fun getComplementaryColor(color: Int): Int {
   val hsl = FloatArray(3)
   ColorUtils.colorToHSL(color, hsl)
@@ -136,11 +192,26 @@ fun getComplementaryColor(color: Int): Int {
   return ColorUtils.HSLToColor(hsl)
 }
 
+/**
+ * Checks if the contrast between two colors is sufficient for readability.
+ * Uses WCAG guidelines for minimum contrast ratio.
+ *
+ * @param textColor The color of the text
+ * @param backgroundColor The color of the background
+ * @return true if contrast is sufficient, false otherwise
+ */
 fun isContrastSufficient(textColor: Int, backgroundColor: Int): Boolean {
   val contrast = ColorUtils.calculateContrast(textColor, backgroundColor)
   return contrast >= 4.5
 }
 
+/**
+ * Adjusts the brightness of a color by the given factor.
+ *
+ * @param color The color to adjust
+ * @param factor Factor to multiply brightness by (>1 brightens, <1 darkens)
+ * @return The adjusted color
+ */
 fun adjustBrightness(color: Int, factor: Float): Int {
   val hsv = FloatArray(3)
   Color.colorToHSV(color, hsv)

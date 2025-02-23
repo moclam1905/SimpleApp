@@ -9,11 +9,11 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
 import com.nguyenmoclam.simpleapp.R
-import com.nguyenmoclam.simpleapp.binding.ViewBinding
 import com.nguyenmoclam.simpleapp.data.SortOption
 import com.nguyenmoclam.simpleapp.databinding.ActivityMainBinding
 import com.nguyenmoclam.simpleapp.ui.details.DetailActivity.Companion.REQUEST_CODE_DETAIL
 import com.nguyenmoclam.simpleapp.ui.details.DetailActivity.Companion.RESULT_CODE_DELETED_ITEM
+import com.nguyenmoclam.simpleapp.utils.CoroutineScopeSingleton
 import com.skydoves.bindables.BindingActivity
 import com.skydoves.transformationlayout.onTransformationStartContainer
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,7 +72,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
   override fun onDestroy() {
     super.onDestroy()
-    ViewBinding.CoroutineScopeSingleton.cancel()
+    CoroutineScopeSingleton.cancel()
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

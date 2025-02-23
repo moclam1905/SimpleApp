@@ -11,6 +11,7 @@ import com.nguyenmoclam.simpleapp.R
 import com.nguyenmoclam.simpleapp.databinding.ActivityDetailBinding
 import com.nguyenmoclam.simpleapp.extensions.argument
 import com.nguyenmoclam.simpleapp.model.Item
+import com.nguyenmoclam.simpleapp.utils.CoroutineScopeSingleton
 import com.skydoves.bindables.BindingActivity
 import com.skydoves.transformationlayout.TransformationCompat
 import com.skydoves.transformationlayout.TransformationCompat.onTransformationEndContainerApplyParams
@@ -65,6 +66,11 @@ class DetailActivity : BindingActivity<ActivityDetailBinding>(R.layout.activity_
         .setNegativeButton(getString(R.string.no), null)
         .show()
     }
+  }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    CoroutineScopeSingleton.cancel()
   }
 
   companion object {

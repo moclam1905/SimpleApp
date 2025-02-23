@@ -22,10 +22,9 @@ import com.nguyenmoclam.simpleapp.R
 import com.nguyenmoclam.simpleapp.database.utils.createInitialsDrawable
 import com.nguyenmoclam.simpleapp.database.utils.dpToPx
 import com.nguyenmoclam.simpleapp.model.Item
+import com.nguyenmoclam.simpleapp.utils.CoroutineScopeSingleton
 import com.nguyenmoclam.simpleapp.utils.formatDate
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -55,15 +54,18 @@ object ViewBinding {
     }
   }
 
-  object CoroutineScopeSingleton {
-    private val job = Job()
-    val scope = CoroutineScope(Dispatchers.Main + job)
-
-    fun cancel() {
-      job.cancel()
-    }
-  }
-
+  /**
+   * A binding adapter that loads and displays an image with a palette-generated background color for a card.
+   *
+   * This function:
+   * 1. Creates an initial drawable based on the item's properties using coroutines
+   * 2. Loads the drawable using Glide
+   * 3. Sets the card's background color based on the item's text color
+   *
+   * @param view The ImageView where the generated drawable will be displayed
+   * @param item The data item containing initials, background color, and text color
+   * @param paletteCard The MaterialCardView whose background color will be updated
+   */
   @JvmStatic
   @BindingAdapter("paletteImage", "paletteCard")
   fun bindLoadImagePalette(
@@ -113,6 +115,20 @@ object ViewBinding {
     }
   }
 
+  /**
+   * A binding adapter that loads an image and applies a palette-generated gradient background to a view.
+   *
+   * This function:
+   * 1. Creates an initial drawable based on the item's properties using coroutines
+   * 2. Loads the drawable using Glide
+   * 3. Extracts color palette from the loaded bitmap
+   * 4. Creates and applies a gradient background using palette colors
+   * 5. Updates the status bar color to match the dominant color
+   *
+   * @param view The ImageView where the generated drawable will be displayed
+   * @param item The data item containing initials, background color, and text color
+   * @param paletteView The View whose background will be updated with the generated gradient
+   */
   @JvmStatic
   @BindingAdapter("paletteImage", "paletteView")
   fun bindLoadImagePaletteView(view: AppCompatImageView, item: Item?, paletteView: View) {
